@@ -1,0 +1,26 @@
+{
+  "name": "isi-test-task",
+  "version": "1.0.0",
+  "description": "iSi Test Task",
+  "main": "index.js",
+  "author": "Vitaliy Hryshchuk <dk2t112@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.7.2",
+    "angular-ui-router": "^1.0.18"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.24.5",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "run-sequence": "^2.2.1"
+  },
+  "scripts": {
+    "preinstall": "npx npm-force-resolutions",
+    "dev": "gulp"
+  },
+  "resolutions": {
+    "graceful-fs": "^4.2.11"
+  }
+}

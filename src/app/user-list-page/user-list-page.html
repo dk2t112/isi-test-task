@@ -1,0 +1,19 @@
+<div>
+  <button type="button" ng-click="vm.showUserViewPage()">Create User</button>
+</div>
+<table>
+  <tr>
+    <th>USERNAME</th>
+    <th>FIRST NAME</th>
+    <th>LAST NAME</th>
+    <th>EMAIL</th>
+    <th>TYPE</th>
+  </tr>
+  <tr ng-repeat="user in vm.users" ng-click="vm.showUserViewPage(user.id)">
+    <td>{{user.username}}</td>
+    <td>{{user.firstname}}</td>
+    <td>{{user.lastname}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.type}}</td>
+  </tr>
+</table>

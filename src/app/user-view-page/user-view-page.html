@@ -1,0 +1,47 @@
+<form name="userForm">
+  <label for="uname">Username*</label><br>
+  <input type="text" id="uname" name="uname" ng-model="vm.user.username" server-side-validation><br>
+  <p class="help-block" ng-if="userForm.uname.$error.serverSideValidationError">
+    {{userForm.uname.$error.errorMessage}}
+  </p>
+
+  <label for="fname">First name*</label><br>
+  <input type="text" id="fname" name="fname" ng-model="vm.user.firstname" server-side-validation><br>
+  <p class="help-block" ng-if="userForm.fname.$error.serverSideValidationError">
+    {{userForm.fname.$error.errorMessage}}
+  </p>
+
+  <label for="lname">Last name*</label><br>
+  <input type="text" id="lname" name="lname" ng-model="vm.user.lastname"><br>
+
+  <label for="email">Email*</label><br>
+  <input type="text" id="email" name="email" ng-model="vm.user.email"><br>
+
+  <label for="userType">Type*</label><br>
+  <select name="userType" id="userType" ng-model="vm.user.type"
+          ng-options="userType for userType in vm.userTypes" >
+    {{userType}}
+  </select><br>
+
+  <label for="password">Password*</label><br>
+  <input type="password" id="password" name="password" ng-model="vm.user.password"><br>
+
+  <label for="repeat-password">Repeat password*</label><br>
+  <input type="password" id="repeat-password" name="repeat-password" ng-model="vm.user.repeatPassword"><br>
+
+  <div ng-if="!vm.editMode">
+    <input type="submit"
+           value="Create"
+           ng-disabled="userForm.$invalid"
+           ng-click="vm.createUser()"/>
+  </div>
+  <div ng-if="vm.editMode">
+    <input type="submit"
+           value="Delete"
+           ng-click="vm.deleteUser(vm.user.id)"/>
+    <input type="submit"
+           value="Save"
+           ng-disabled="userForm.$invalid"
+           ng-click="vm.updateUser(vm.user.id)"/>
+  </div>
+</form>
