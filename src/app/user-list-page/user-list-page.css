@@ -1,0 +1,59 @@
+.user-list-page {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  padding-top: 20px;
+}
+
+.user-list-page > .user-list-page__inner {
+  width: 100%;
+  max-width: 1218px;
+}
+
+.user-list-page > .user-list-page__inner .user-list-page__button {
+  margin-bottom: 16px;
+}
+
+.user-list-page > .user-list-page__inner .user-list-page__table {
+  background: #fff;
+  padding: 10px 0 77px;
+  box-shadow: 0 0 30px #523F690D;
+  border: 1px solid #EBEDF3;
+  border-radius: 6px;
+}
+
+.user-list-page > .user-list-page__inner .user-list-page__table table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+.user-list-page > .user-list-page__inner .user-list-page__table th {
+  font-weight: bold;
+  color: #a4a4b5;
+  line-height: 1;
+  padding: 16px 0 16px 0;
+  background: #fff;
+}
+
+.user-list-page > .user-list-page__inner .user-list-page__table th:first-child {
+  padding-left: 26px;
+}
+
+.user-list-page > .user-list-page__inner .user-list-page__table tr {
+  background: #F4F5F8;
+  border-bottom: 1px solid #fff;
+}
+
+.user-list-page > .user-list-page__inner .user-list-page__table tr:hover {
+  background: #EFF0F4;
+}
+
+.user-list-page > .user-list-page__inner .user-list-page__table tr td:first-child {
+  padding-left: 26px;
+}
+
+.user-list-page > .user-list-page__inner .user-list-page__table td {
+  padding: 20px 0;
+  cursor: pointer;
+}

@@ -12,7 +12,6 @@
             pendingRequest = setTimeout(function() {
               apiService.validateFormField(attr.name, value)
                 .then(response => {
-                  console.log("---> response", response);
                   scope.$apply(() => {
                     ctrl.$setValidity('serverSideValidationError', response.isValid);
                     ctrl.$error.errorMessage = response.errorMessage;

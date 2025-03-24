@@ -5,29 +5,7 @@
 
   function ApiMocks() {
     let users = createMockUsers();
-    const getUsers = () => users;
-    const createUser = (user) => users.push(user);
-    const getUser = (userId) => users.find(u => u.id === userId);
-    const deleteUser = (userId) => users = users.filter(u => u.id !== userId);
-    const updateUser = (user) => {
-      let userToUpdate = users.find(u => u.id === user.id);
-      if (userToUpdate) {
-        userToUpdate = user;
-      }
-    }
-    const validateFormField = (fieldName, value) => {
-      if (!value) {
-        return {
-          isValid: false,
-          errorMessage: "Required Field"
-        }
-      } else {
-        return {
-          isValid: true,
-          errorMessage: ""
-        }
-      }
-    }
+    let lastUserId = users.length;
 
     return {
       getUsers,
@@ -37,6 +15,76 @@
       deleteUser,
       validateFormField
     };
+
+    function getUsers() {
+      return users;
+    }
+
+    function createUser(user) {
+      users.push({
+        ...user,
+        id: (lastUserId++).toString()
+      });
+    }
+
+    function getUser (userId) {
+      return users.find(u => u.id === userId);
+    }
+
+    function deleteUser(userId) {
+      users = users.filter(u => u.id !== userId);
+    }
+
+    function updateUser(user) {
+      deleteUser(user.id);
+      users.push(user);
+    }
+
+    function validateFormField(fieldName, value) {
+      const validResponse = {
+        isValid: true,
+        errorMessage: ""
+      };
+      const invalidResponse = (errorMessage) => ({
+        isValid: false,
+        errorMessage: errorMessage
+      });
+      const isValidEmail = (email) => {
+        return String(email)
+          .toLowerCase()
+          .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          );
+      };
+      const isValidPassword = (password) => {
+        return String(password)
+          .match(
+            /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+          );
+      }
+
+      if (!value) {
+        return invalidResponse("Required Field");
+      }
+      if (fieldName === "uname") {
+        const usernameExists = users.find(u => u.username === value);
+        if (usernameExists) {
+          return invalidResponse("Username exists");
+        }
+      }
+      if (fieldName === "email") {
+        const isValid = isValidEmail(value);
+        if (!isValid) {
+          return invalidResponse("Invalid email");
+        }
+      }
+      if (fieldName === "password") {
+        if (!isValidPassword(value)) {
+          return invalidResponse("Password min length is 8 characters. At least one number and one letter");
+        }
+      }
+      return validResponse;
+    }
 
     function createMockUsers() {
       return [

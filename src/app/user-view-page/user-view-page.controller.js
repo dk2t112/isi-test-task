@@ -5,20 +5,21 @@
 
   function UserViewPageController($scope, $state, $stateParams, userViewPageService) {
     const vm = this;
+    vm.userTypes = ["Administrator", "Driver"];
     vm.user = {
-      username: "user",
-      firstname: "fname",
+      username: "",
+      firstname: "",
       lastname: "",
       email: "",
-      type: "",
+      type: vm.userTypes[1],
       password: "",
       repeatPassword: "",
     };
-    vm.userTypes = ["Administrator", "Driver"];
     vm.editMode = false;
     vm.createUser = createUser;
     vm.updateUser = updateUser;
     vm.deleteUser = deleteUser;
+    vm.passwordsMatch = () => vm.user.password === vm.user.repeatPassword;
 
     if ($stateParams.userId) {
       vm.editMode = true;
@@ -27,7 +28,15 @@
 
     function getUser(userId) {
       userViewPageService.getUser(userId)
-        .then(user => $scope.$apply(() => vm.user = user));
+        .then(user => {
+          if (!user) {
+            $scope.$apply(() => $state.go('page404'));
+          } else if (user.id === "1") {
+            $scope.$apply(() => $state.go('page403'));
+          } else {
+            $scope.$apply(() => vm.user = {...user})
+          }
+        });
     }
 
     function createUser() {

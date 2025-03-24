@@ -1,47 +1,133 @@
-<form name="userForm">
-  <label for="uname">Username*</label><br>
-  <input type="text" id="uname" name="uname" ng-model="vm.user.username" server-side-validation><br>
-  <p class="help-block" ng-if="userForm.uname.$error.serverSideValidationError">
-    {{userForm.uname.$error.errorMessage}}
-  </p>
-
-  <label for="fname">First name*</label><br>
-  <input type="text" id="fname" name="fname" ng-model="vm.user.firstname" server-side-validation><br>
-  <p class="help-block" ng-if="userForm.fname.$error.serverSideValidationError">
-    {{userForm.fname.$error.errorMessage}}
-  </p>
-
-  <label for="lname">Last name*</label><br>
-  <input type="text" id="lname" name="lname" ng-model="vm.user.lastname"><br>
-
-  <label for="email">Email*</label><br>
-  <input type="text" id="email" name="email" ng-model="vm.user.email"><br>
-
-  <label for="userType">Type*</label><br>
-  <select name="userType" id="userType" ng-model="vm.user.type"
-          ng-options="userType for userType in vm.userTypes" >
-    {{userType}}
-  </select><br>
-
-  <label for="password">Password*</label><br>
-  <input type="password" id="password" name="password" ng-model="vm.user.password"><br>
-
-  <label for="repeat-password">Repeat password*</label><br>
-  <input type="password" id="repeat-password" name="repeat-password" ng-model="vm.user.repeatPassword"><br>
-
-  <div ng-if="!vm.editMode">
-    <input type="submit"
-           value="Create"
-           ng-disabled="userForm.$invalid"
-           ng-click="vm.createUser()"/>
+<div class="user-view-page">
+  <div class="user-view-page__inner">
+    <div class="user-view-page__header">
+      <h3 class="user-view-page__title">Create new user</h3>
+      <div class="user-view-page__close">
+        <button type="button" class="button-close"><i class="close"></i></button>
+      </div>
+    </div>
+    <form name="userForm" class="form">
+      <div class="form__input">
+        <label for="uname">Username*</label>
+        <input type="text"
+               ng-class="{'input-error': userForm.uname.$error.serverSideValidationError}"
+               id="uname"
+               name="uname"
+               ng-model="vm.user.username"
+               required
+               server-side-validation>
+        <p class="help-block" ng-if="userForm.uname.$error.serverSideValidationError">
+          {{userForm.uname.$error.errorMessage}}
+        </p>
+      </div>
+      <div class="form__input">
+        <label for="fname">First name*</label>
+        <input type="text"
+               ng-class="{'input-error': userForm.fname.$error.serverSideValidationError}"
+               id="fname"
+               name="fname"
+               ng-model="vm.user.firstname"
+               required
+               server-side-validation>
+        <p class="help-block" ng-if="userForm.fname.$error.serverSideValidationError">
+          {{userForm.fname.$error.errorMessage}}
+        </p>
+      </div>
+      <div class="form__input">
+        <label for="lname">Last name*</label>
+        <input type="text"
+               ng-class="{'input-error': userForm.lname.$error.serverSideValidationError}"
+               id="lname"
+               name="lname"
+               ng-model="vm.user.lastname"
+               required
+               server-side-validation>
+        <p class="help-block" ng-if="userForm.lname.$error.serverSideValidationError">
+          {{userForm.lname.$error.errorMessage}}
+        </p>
+      </div>
+      <div class="form__input">
+        <div class="form-email">
+          <label for="email">Email*</label>
+          <input type="text"
+                 ng-class="{'input-error': userForm.email.$error.serverSideValidationError}"
+                 id="email"
+                 name="email"
+                 ng-model="vm.user.email"
+                 required
+                 server-side-validation>
+          <p class="help-block" ng-if="userForm.email.$error.serverSideValidationError">
+            {{userForm.email.$error.errorMessage}}
+          </p>
+        </div>
+      </div>
+      <div class="form__input">
+        <div class="form-select">
+          <label for="userType">Type*</label>
+          <select name="userType"
+                  class="input-error"
+                  id="userType"
+                  ng-model="vm.user.type"
+                  ng-options="userType for userType in vm.userTypes"
+                  required
+                  server-side-validation>
+            {{userType}}
+          </select>
+          <p class="help-block" ng-if="userForm.userType.$error.serverSideValidationError">
+            {{userForm.userType.$error.errorMessage}}
+          </p>
+        </div>
+      </div>
+      <div class="form__input">
+        <label for="password">Password*</label>
+        <input type="password"
+               ng-class="{'input-error': userForm.password.$touched && userForm.password.$error.serverSideValidationError}"
+               id="password"
+               name="password"
+               ng-model="vm.user.password"
+               required
+               server-side-validation>
+        <p class="help-block" ng-if="userForm.password.$touched && userForm.password.$error.serverSideValidationError">
+          {{userForm.password.$error.errorMessage}}
+        </p>
+      </div>
+      <div class="form__input">
+        <label for="repeat-password">Repeat password*</label>
+        <input type="password"
+               ng-class="{'input-error': userForm.repeatPassword.$touched && !vm.passwordsMatch()}"
+               id="repeat-password"
+               name="repeatPassword"
+               ng-model="vm.user.repeatPassword"
+               required
+               ng-pattern="vm.user.password">
+        <p class="help-block" ng-if="userForm.repeatPassword.$touched && !vm.passwordsMatch()">
+          Passwords do not match
+        </p>
+      </div>
+      <div ng-if="!vm.editMode">
+        <input type="submit"
+               value="Create"
+               ng-disabled="userForm.$invalid"
+               ng-click="vm.createUser()"
+               class="button button--align-center"
+               ng-class="{'button--disabled': userForm.$invalid}"
+        />
+      </div>
+      <div ng-if="vm.editMode">
+        <div class="form__submit">
+          <input type="button"
+                 value="Delete"
+                 ng-click="vm.deleteUser(vm.user.id)"
+                 class="button button--error"/>
+          <input type="submit"
+                 value="Save"
+                 ng-disabled="userForm.$invalid"
+                 ng-click="vm.updateUser(vm.user)"
+                 class="button"
+                 ng-class="{'button--disabled': userForm.$invalid}"
+          />
+        </div>
+      </div>
+    </form>
   </div>
-  <div ng-if="vm.editMode">
-    <input type="submit"
-           value="Delete"
-           ng-click="vm.deleteUser(vm.user.id)"/>
-    <input type="submit"
-           value="Save"
-           ng-disabled="userForm.$invalid"
-           ng-click="vm.updateUser(vm.user.id)"/>
-  </div>
-</form>
+</div>

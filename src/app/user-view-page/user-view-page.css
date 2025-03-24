@@ -1,0 +1,99 @@
+.user-view-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.user-view-page > .user-view-page__inner {
+  width: 100%;
+  max-width: 584px;
+  margin: 20px 0;
+  padding: 26px;
+  background: #fff;
+  box-shadow: 0 0 30px #523F690D;
+  border: 1px solid #EBEDF3;
+  border-radius: 6px;
+}
+
+.user-view-page > .user-view-page__inner .user-view-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  margin-bottom: 30px;
+}
+
+.user-view-page > .user-view-page__inner .form__input {
+  margin-bottom: 16px;
+}
+
+.user-view-page > .user-view-page__inner .form__input label {
+  display: inline-block;
+  margin-bottom: 3px;
+}
+
+.user-view-page > .user-view-page__inner .form__input input,
+.user-view-page > .user-view-page__inner .form-select select{
+  display: block;
+  width: 100%;
+  background: #f3f6f9;
+  border-color: transparent;
+  border-radius: 6px;
+  padding: 15px 16px;
+  color: #3f4254;
+  outline: none;
+}
+
+.user-view-page > .user-view-page__inner .form-select {
+  position: relative;
+}
+
+.user-view-page > .user-view-page__inner .form-select:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 24px;
+  height: 24px;
+  top: 30px;
+  right: 16px;
+  background-image: url('arrow-dropdown.svg');
+}
+
+.user-view-page > .user-view-page__inner .form-select select {
+  appearance: none;
+}
+
+.user-view-page > .user-view-page__inner .form__submit {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.user-view-page > .user-view-page__inner .form__input {
+  position: relative;
+}
+
+.user-view-page > .user-view-page__inner .form__input .form-email:before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 24px;
+  height: 24px;
+  top: 30px;
+  left: 16px;
+  background-image: url('email.svg');
+}
+
+.user-view-page > .user-view-page__inner .form__input input[name="email"] {
+  padding-left: 46px;
+}
+
+.user-view-page > .user-view-page__inner .form__input input.input-error {
+  border: 1px solid #EF7DA0;
+}
+
+.user-view-page > .user-view-page__inner .form__input .help-block {
+  margin-top: 3px;
+  color: #ef7da0;
+}
